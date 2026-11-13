@@ -1,16 +1,23 @@
-import {cart} from '../data/cart.js';
+
+import {cart, removeFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
-import{formatcurrency} from './utils/money.js';
-let cartsummaryhtml = '';
-cart.forEach((cartitem) => {
+import {formatcurrency} from './utils/money.js';
+
+function renderOrderSummary() {
+  let cartsummaryhtml = '';
+
+  cart.forEach((cartitem) => {
     const productId = cartitem.productId;
     const quantity = cartitem.quantity;
+
     let matchingProduct;
+
     products.forEach((product) => {
-        if (product.id === productId) {
-            matchingProduct = product;
-        }
+      if (product.id === productId) {
+        matchingProduct = product;
+      }
     });
+
     cartsummaryhtml +=
     `
        <div class="cart-item-container">
@@ -27,7 +34,7 @@ cart.forEach((cartitem) => {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                    $${formatcurrency(matchingProduct.priceCents )}
+                    $${formatcurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
@@ -36,7 +43,8 @@ cart.forEach((cartitem) => {
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary">
+                  <span class="delete-quantity-link link-primary js-delete-link"
+                    data-product-id="${matchingProduct.id}">
                     Delete
                   </span>
                 </div>
@@ -88,6 +96,19 @@ cart.forEach((cartitem) => {
               </div>
             </div>
           </div>`;
-});
-document.querySelector('.js-order-summary').innerHTML = cartsummaryhtml;
-console.log(cartsummaryhtml);
+  });
+
+  document.querySelector('.js-order-summary').innerHTML = cartsummaryhtml;
+
+  document.querySelectorAll('.js-delete-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+
+      removeFromCart(productId);
+
+      renderOrderSummary();
+    });
+  });
+}
+
+renderOrderSummary();
