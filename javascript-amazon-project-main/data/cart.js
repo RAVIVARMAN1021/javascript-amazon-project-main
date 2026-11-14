@@ -59,3 +59,14 @@ export function removeFromCart(productId) {
   });
   savetostorage();
 }
+ export function updatedDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;
+
+  cart.forEach((cartitem) => {
+    if (cartitem.productId === productId) {
+      matchingItem = cartitem;
+    }
+  });
+   matchingItem.deliveryOptionId = deliveryOptionId;
+   savetostorage();
+}
