@@ -17,4 +17,4 @@ if (formatcurrency(1000.5) === '10.01') {
     console.log('Test passed');
 }   else {
     console.log('Test failed');
-}   
+} 
