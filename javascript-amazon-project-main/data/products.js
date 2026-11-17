@@ -79,6 +79,7 @@ export const products = [
       count: 37
     },
     priceCents: 2067,
+    
     keywords: [
       "plates",
       "kitchen",

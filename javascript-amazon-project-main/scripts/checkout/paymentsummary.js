@@ -1,8 +1,8 @@
 
-import { cart } from '../../data/cart.js';
 import { getProductById } from '../../data/products.js';
 import { getDeliveryOptionById } from '../../data/deliveryOptions.js';
 import { formatcurrency } from '../utils/money.js';
+import { cart } from '../../data/cart-oop.js';
 
 export function renderpaymentSummary() {
 
@@ -10,7 +10,7 @@ export function renderpaymentSummary() {
   let deliveryoptionprice = 0;
   let totalItems = 0;
 
-  cart.forEach((cartitem) => {
+  cart.cartItem.forEach((cartitem) => {
 
     const product = getProductById(cartitem.productId);
 
@@ -21,8 +21,7 @@ export function renderpaymentSummary() {
     const deliveryOption = getDeliveryOptionById(
       cartitem.deliveryOptionId
     );
-
-    deliveryoptionprice += deliveryOption.pricecents;
+deliveryoptionprice += deliveryOption.pricecents;
 
   });
 
