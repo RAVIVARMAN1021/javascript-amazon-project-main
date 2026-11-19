@@ -4,7 +4,7 @@ import { cart } from '../data/cart-oop.js';
 
 console.log(cart);
 
-import '../data/backend-practice.js';
+//import '../data/backend-practice.js';
 
 renderOrderSummary();
 renderpaymentSummary();
